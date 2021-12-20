@@ -2,8 +2,16 @@
 
 __pycache__
 
+<<<<<<< HEAD
 *.*-
 
 *.pyc
 
 .idea
+=======
+*.*~
+
+*.pyc
+
+.idea
+>>>>>>> 3119ec707308965c0bee6ab78547621eb2c8ddf5
