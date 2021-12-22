@@ -1,3 +1,4 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -5,8 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Inicial</title>
+    <link rel="stylesheet" href="{%static 'index/estilo.css'%}">
 </head>
 <body>
-    <h1>Testando página incial!!</h1>
+    <h1>Testando página incial!!</h1><br>
+    <button id="botao" onclick="clicar()">Clique em mim!</button>
+
+    <script src="{%static 'index/script.js'%}"></script>
 </body>
 </html>
