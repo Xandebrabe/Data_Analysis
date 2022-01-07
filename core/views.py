@@ -8,6 +8,6 @@ dados = pd.read_csv(url_dados+'.csv')
 def index(request):
     #print (dados[1])
     info = {
-        'dados':dados}
+        'dados':dados} 
     return render(request, 'index.html',info)
 
