@@ -1,3 +1,4 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -5,8 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre nós</title>
+    <link rel="stylesheet" href="{%static 'sobrenos/style.css'%}">
+    <link rel="stylesheet" href="{%static 'essencial/menu_footer.css'%}">
 </head>
 <body>
+    {%include 'menu_footer.html'%}
     <h1>Somos uma equipe de estudantes do quarto ano do CEFET, com o objetivo de desenvolver um sistema de análise de dados sobre a pandemia de Covid-19 pelo mundo</h1>
 </body>
 </html>

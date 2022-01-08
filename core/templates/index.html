@@ -7,31 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Inicial</title>
     <link rel="stylesheet" href="{%static 'index/style.css'%}">
+    <link rel="stylesheet" href="{%static 'essencial/menu_footer.css'%}">
 </head>
 <body>
-    <header id="menu">
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Menu</a></li>
-            <li><a href="{%url 'sobrenos'%}">Sobre nós</a></li>
-            <li><a href="#">Entrar?</a></li>
-        </ul>
-    </header>
+    {%include 'menu_footer.html'%}
+
     <img src="{%static 'index/cefetlogo.jpg'%}"width="125px">
     <h1>Testando página incial!!</h1><br>
     <button id="botao" onclick="clicar()">Clique em mim!</button>
-    
+    <div id="teste">
+        <table>
+            {{dados}}
+        </table>
+    </div>
+
 
     <script src="{%static 'index/script.js'%}"></script>
-
-   
-    <footer>
-        <div id="tel">
-            aaaaaaaaaaaaaaaaagdfgdfgdfgdfgdjjjjjjjjjjjjjjjjjjjjjjjj
-        </div>
-        <div id="email">
-            hfghfhrfhfg
-        </div>
-    </footer>
 </body>
 </html>
