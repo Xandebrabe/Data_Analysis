@@ -11,3 +11,7 @@ def index(request):
         'dados':dados}
     return render(request, 'index.html',info)
 
+
+def sobrenos(request):
+    return render(request, 'sobrenos.html')
+

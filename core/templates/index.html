@@ -6,19 +6,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Inicial</title>
-    <link rel="stylesheet" href="{%static 'index/estilo.css'%}">
+    <link rel="stylesheet" href="{%static 'index/style.css'%}">
 </head>
 <body>
-    <img src="{%static 'images/cefetlogo.jpg'%}"width="125px">
+    <header id="menu">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Menu</a></li>
+            <li><a href="{%url 'sobrenos'%}">Sobre nós</a></li>
+            <li><a href="#">Entrar?</a></li>
+        </ul>
+    </header>
+    <img src="{%static 'index/cefetlogo.jpg'%}"width="125px">
     <h1>Testando página incial!!</h1><br>
     <button id="botao" onclick="clicar()">Clique em mim!</button>
-    <p>{{str(dados['Lat'][1])}}</p>
 
     <script src="{%static 'index/script.js'%}"></script>
 
    
     <footer>
-        aaaaaaaaaaaaaaaaa
+        <div id="tel">
+            aaaaaaaaaaaaaaaaagdfgdfgdfgdfgdjjjjjjjjjjjjjjjjjjjjjjjj
+        </div>
+        <div id="email">
+            hfghfhrfhfg
+        </div>
     </footer>
 </body>
 </html>
