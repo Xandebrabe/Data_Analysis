@@ -9,7 +9,7 @@ dados_df = pd.read_csv(url_dados)
 
 def index(request):
     #print(dados_df.iloc[ : , 4:dados_df.shape[1]])
-    print(dados_df[['Country/Region', '1/7/22']])
+    #print(dados_df[['Country/Region', '1/7/22']])
     info = {
         'dados':dados_df} 
     return render(request, 'index.html', info)
@@ -17,4 +17,13 @@ def index(request):
 
 def sobrenos(request):
     return render(request, 'sobrenos.html')
+
+""""
+def menu(request, nome):
+    paises = ["Brazil", "US", "Germany"]
+    context = {
+        'pais_selecionado': paises
+    }
+    return render(request, 'dados.html', context)
+"""
 
