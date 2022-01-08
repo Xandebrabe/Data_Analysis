@@ -7,25 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Inicial</title>
     <link rel="stylesheet" href="{%static 'index/style.css'%}">
-    <link rel="stylesheet" href="{%static 'essencial/menu_footer.css'%}">
+    <link rel="stylesheet" href="{%static 'essencial/menu.css'%}">
 </head>
 <body>
-    <header id="menu"> 
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Menu</a></li>
-            <li><a href="{%url 'sobrenos'%}">Sobre nós</a></li>
-            <li><a href="#">Entrar?</a></li>
-        </ul>
-    </header>
+    {%include 'menu.html'%}
     <div id="wrapper">
         <div class="container body-content">
             <img src="{%static 'index/cefetlogo.jpg'%}"width="125px">
             <h1>Testando página incial!!</h1><br>
             <button id="botao" onclick="clicar()">Clique em mim!</button>
-            
-
-            <script src="{%static 'index/script.js'%}"></script>
 
     
             <br>
@@ -70,7 +60,6 @@
             <br>
             <br>
             <br>
-
             <footer>
                 <div id="tel">
                     aaaaaaaaaaaaaaaaagdfgdfgdfgdfgdjjjjjjjjjjjjjjjjjjjjjjjj
@@ -81,5 +70,6 @@
             </footer>
         </div>
     </div>
+    <script src="{%static 'index/script.js'%}"></script>
 </body>
 </html>
