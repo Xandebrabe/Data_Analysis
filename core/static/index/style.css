@@ -15,7 +15,7 @@ body{
 /*---------footer--------*/
 footer{
     font: normal 20pt Arial;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     background-color: rgb(255, 255, 255);
     color: rgba(87, 85, 85, 0.89);
