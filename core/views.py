@@ -10,9 +10,9 @@ dados_df = pd.read_csv(url_dados)
 def index(request):
     #print(dados_df.iloc[ : , 4:dados_df.shape[1]])
     #print(dados_df[['Country/Region', '1/7/22']])
-    #info = {
-    #    'dados':dados_df} 
-    return render(request, 'index.html', dados_df)
+    info = {
+        'dados':dados_df} 
+    return render(request, 'index.html', info)
 
 
 def sobrenos(request):
