@@ -41,13 +41,19 @@ def sobrenos(request):
 
 
 def dados(request, nome):
-    paises = ["Brazil", "US", "Germany"]
+
+    dados_pais = dados_df.loc[dados_df['Country/Region'] == nome]
+    casos_ate_hoje = dados_pais.iloc[:, -1].to_string().split()[1]  #Pegando o número de casos até o dia atual
+    print(casos_ate_hoje)
+    
+    # nome_pais = dados_pais.dropna(how='all', axis=1).loc[1, ['Country/Region'][0]]  #deletando colunas vazias
+
     context = {
-        'paises': paises
+        'paises': paises,
+        'dados_pais': dados_pais,
+        'casos': casos_ate_hoje,
+        'nome_pais': nome
     }
-    #print(dados_df.iloc[ : , 4:dados_df.shape[1]])
-    #print(dados_df[['Country/Region', '1/7/22']])
-    #paises = ["Brazil", "US", "Germany"]
     
     return render(request, 'dados.html', context)
 

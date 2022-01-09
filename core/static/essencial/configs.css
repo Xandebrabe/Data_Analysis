@@ -32,7 +32,6 @@ body{
 }
 #menu ul li a:hover{
     opacity: 50%;
-    background-color: rgb(252, 245, 245);
 }
 #login{
     float: right;
@@ -43,15 +42,11 @@ body{
     font: normal 10pt Arial;
     display: none;
     position: absolute;
-    left: 0;
-    background-color: rgb(212, 64, 64);
+    background-color: rgb(255, 255, 255);
+    width: 1000px;
 }
-#menu ul ul li a{
-    display: inline-block;
-}
+
 #menu ul li:hover ul{
-    display:grid;
-}
-#menu ul ul li:hover a{
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
 }

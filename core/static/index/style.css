@@ -1,5 +1,5 @@
 body{
-    color: brown;
+    color: rgba(87, 85, 85, 0.89);
 }
 
 /*---------Botão--------*/
@@ -38,7 +38,6 @@ footer div{
 /*---------para o footer ficar no fundo--------*/
 #wrapper{
     min-height: 100%;
-    position: relative;
 }
 
 div.body-content{
