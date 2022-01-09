@@ -7,23 +7,44 @@ url_dados = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/cs
 
 dados_df = pd.read_csv(url_dados)
 
+
+#Pegando os países
+flag = 0
+paises = []
+paises_totais = dados_df['Country/Region']
+
+for i, pais in enumerate(paises_totais):
+    for j in range(i+1, len(paises_totais)):
+        if pais == paises_totais[j]:
+            flag = 1
+            break
+    if flag == 0:
+        paises.append(pais)
+    flag = 0
+
+
+
 def index(request):
-    #print(dados_df.iloc[ : , 4:dados_df.shape[1]])
-    #print(dados_df[['Country/Region', '1/7/22']])
-    info = {
-        'dados':dados_df} 
-    return render(request, 'index.html', info)
+    context = {
+        'paises': paises
+    }
+    return render(request, 'index.html', context)
 
 
 def sobrenos(request):
-    return render(request, 'sobrenos.html')
-
-""""
-def menu(request, nome):
-    paises = ["Brazil", "US", "Germany"]
     context = {
-        'pais_selecionado': paises
+        'paises': paises
     }
+    return render(request, 'sobrenos.html', context)
+
+
+def dados(request, nome):
+    context = {
+        'paises': paises
+    }
+    #print(dados_df.iloc[ : , 4:dados_df.shape[1]])
+    #print(dados_df[['Country/Region', '1/7/22']])
+    #paises = ["Brazil", "US", "Germany"]
+    
     return render(request, 'dados.html', context)
-"""
 

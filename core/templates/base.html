@@ -1,0 +1,30 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%} {%endblock%}</title>
+    <link rel="stylesheet" href="{%static 'essencial/configs.css'%}">
+    <link rel="stylesheet" href="{%block estilo%} {%endblock%}">
+</head>
+<body>
+<nav id="menu"> 
+    <ul>
+        <li><a href="{%url 'index'%}">Home</a></li>
+        <li><a href="#">Menu</a>
+            <ul>
+                {%for pais in paises%}
+                    <li><a href="{%url 'dados' pais%}">{{pais}}</a></li>
+                {%endfor%}
+             </ul>
+        </li>
+        <li><a href="{%url 'sobrenos'%}">Sobre nós</a></li>
+        <li><a href="#" id="login">Entrar?</a></li>
+    </ul>
+</nav>
+
+{%block content%}
+
+{%endblock%}

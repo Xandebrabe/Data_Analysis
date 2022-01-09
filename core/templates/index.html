@@ -1,16 +1,10 @@
+{%extends 'base.html'%}
 {%load static%}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Inicial</title>
-    <link rel="stylesheet" href="{%static 'index/style.css'%}">
-    <link rel="stylesheet" href="{%static 'essencial/configs.css'%}">
-</head>
-<body>
-    {%include 'menu.html'%}
+
+{%block title%}Página Inicial{%endblock%}
+{%block estilo%}{%static 'index/style.css'%}{%endblock%}
+
+{%block content%}
     <div id="wrapper">
         <div class="container body-content">
             <img src="{%static 'index/cefetlogo.jpg'%}"width="125px">
@@ -44,23 +38,7 @@
             <br>
             <br>
             <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
+            
             <footer>
                 <div id="tel">
                     aaaaaaaaaaaaaaaaagdfgdfgdfgdfgdjjjjjjjjjjjjjjjjjjjjjjjj
@@ -74,3 +52,4 @@
     <script src="{%static 'index/script.js'%}"></script>
 </body>
 </html>
+{%endblock%}
