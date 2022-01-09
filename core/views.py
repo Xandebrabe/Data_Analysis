@@ -37,8 +37,17 @@ def sobrenos(request):
     }
     return render(request, 'sobrenos.html', context)
 
+#isso vai printar na tela a latitude, só que ele fala primeiro a posição, depois o item em si. Ex '0' '33.939110' 
+def index(request):
+    qualquercoisa = dados_df['Lat']
+    context = {
+        'teste':qualquercoisa
+    }
+    return render(request,'index.html',context)
 
-def dados(request, nome):
+""""
+def menu(request, nome):
+    paises = ["Brazil", "US", "Germany"]
     context = {
         'paises': paises
     }
