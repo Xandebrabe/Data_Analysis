@@ -5,10 +5,15 @@
 {%block estilo%}{%static 'dados/style.css'%}{%endblock%}
     
 {%block content%}
-    <div>
-        <h2>Nome do país: {{nome_pais}} </h2>
-        <h2>Casos totais: {{casos}}</h2>
-    </div>
+<h1>Nome do país: {{nome_pais}}</h1>
+    <section id="dados">
+        <div id="dados_casos">
+            <h2>Casos totais: {{casos}}</h2>
+        </div>
+        <div id="dados_mortes">
+            <h2>Mortes até o dia atual: {{mortes}}</h2>
+        </div>
+    </section>
 </body>
 </html>
 {%endblock%}

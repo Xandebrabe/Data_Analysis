@@ -3,15 +3,17 @@ import pandas as pd
 
 #url_dados = 'https://github.com/CSSEGISandData/COVID-19/blob/6069101a460264889fbab70daffba3dcbe24ed00/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv?raw=true'
 
-url_dados = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv'
+url_dados_casos = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv'
+url_dados_mortes = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv'
 
-dados_df = pd.read_csv(url_dados)
+dados_casos_df = pd.read_csv(url_dados_casos)
+dados_mortes_df = pd.read_csv(url_dados_mortes)
 
 
 #Pegando os países
 flag = 0
 paises = []
-paises_totais = dados_df['Country/Region']
+paises_totais = dados_casos_df['Country/Region']
 
 for i, pais in enumerate(paises_totais):
     for j in range(i+1, len(paises_totais)):
@@ -25,7 +27,7 @@ for i, pais in enumerate(paises_totais):
 
 #isso vai printar na tela a latitude, só que ele fala primeiro a posição, depois o item em si. Ex '0' '33.939110' 
 def index(request):
-    qualquercoisa = dados_df['Country/Region']
+    qualquercoisa = dados_casos_df['Country/Region']
     context = {
         'paises': paises,
         'teste':qualquercoisa
@@ -42,16 +44,22 @@ def sobrenos(request):
 
 def dados(request, nome):
 
-    dados_pais = dados_df.loc[dados_df['Country/Region'] == nome]
-    casos_ate_hoje = dados_pais.iloc[:, -1].to_string().split()[1]  #Pegando o número de casos até o dia atual
-    print(casos_ate_hoje)
+    dados_casos_pais = dados_casos_df.loc[dados_casos_df['Country/Region'] == nome]
+    dados_mortes_pais = dados_mortes_df.loc[dados_mortes_df['Country/Region'] == nome]
+
+    casos_ate_hoje = dados_casos_pais.iloc[:, -1].to_string().split()[1]  #Pegando o número de casos no país em questão até o dia atual
+    mortes_ate_hoje = dados_mortes_pais.iloc[:, -1].to_string().split()[1]  #Pegando o número de mortes no país em questão até o dia atual
+
+    # print(mortes_ate_hoje)
+    #print(casos_ate_hoje)
     
     # nome_pais = dados_pais.dropna(how='all', axis=1).loc[1, ['Country/Region'][0]]  #deletando colunas vazias
 
     context = {
         'paises': paises,
-        'dados_pais': dados_pais,
+        'dados_pais': dados_casos_pais,
         'casos': casos_ate_hoje,
+        'mortes': mortes_ate_hoje,
         'nome_pais': nome
     }
     
