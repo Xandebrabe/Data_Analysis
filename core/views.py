@@ -1,5 +1,7 @@
 from django.shortcuts import render
 import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 
 #url_dados = 'https://github.com/CSSEGISandData/COVID-19/blob/6069101a460264889fbab70daffba3dcbe24ed00/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv?raw=true'
 
@@ -55,21 +57,36 @@ def dados(request, nome):
     
     # nome_pais = dados_pais.dropna(how='all', axis=1).loc[1, ['Country/Region'][0]]  #deletando colunas vazias
 
+<<<<<<< HEAD
 
     dias = dados_casos_pais.iloc[:, 4:]
     mortes_dias = dados_mortes_pais.iloc[:, 4:].iloc[0, :]
     casos_dias = dias.iloc[0, :]
 
 
+=======
+    naldo = dados_casos_pais.iloc[:,4:-1]
+    tnaldo = naldo.value_counts().plot.pie()
+    
+    #img = mpimg.imread(tnaldo+'.png')
+    #imgplot = plt.imshow(img)
+    #plt.show()
+
+    print(naldo.to_string())
+>>>>>>> 5d1bbbf3f86ca74fbf37e63f1e1f842af66f44a6
     context = {
         'paises': paises,
         'dados_pais': dados_casos_pais,
         'casos': casos_ate_hoje,
         'mortes': mortes_ate_hoje,
         'nome_pais': nome,
+<<<<<<< HEAD
         'lista_dias': dias,
         'lista_mortes': mortes_dias,
         'lista_casos': casos_dias
+=======
+        'dia': tnaldo
+>>>>>>> 5d1bbbf3f86ca74fbf37e63f1e1f842af66f44a6
     }
     
     return render(request, 'dados.html', context)
