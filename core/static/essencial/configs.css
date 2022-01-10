@@ -1,15 +1,23 @@
+:root{
+    --cor1: #DAE8F2;
+    --cor2: #505052;
+    --cor3: #EFEDF2;
+    --cor4: #E6E7ED;
+    --cor5: #C3CBD9;
+}
+
 *{
     margin: 0 auto;
     padding: 0;
 }
 
 body{
-    background-color: rgb(226, 239, 255);
+    background-color: var(--cor1);
 }
 
 /*---------menu--------*/
 #menu{
-    background-color: rgb(255, 255, 255);
+    background-color: var(--cor4);
     box-shadow: 1px 2px 20px rgb(184, 184, 184);
     margin-bottom: 100px;
 }
@@ -18,6 +26,7 @@ body{
     list-style-type: none;
     padding: 0;
     max-width: 800px;
+    text-align: center;
 }
 #menu ul li{
     display: inline;
@@ -28,22 +37,26 @@ body{
     display: inline-block;
     padding: 10px;
     transition: 150ms;
-    color: rgba(87, 85, 85, 0.89);
+    color: var(--cor2);
 }
 #menu ul li a:hover{
     opacity: 50%;
 }
 #login{
     float: right;
-    background-color: rgb(214, 245, 200);
+    background-color: var(--cor5);
+    border-radius: 20px;
 }
+
 
 #menu ul ul{
     font: normal 10pt Arial;
     display: none;
     position: absolute;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--cor4);
     width: 1000px;
+    border-radius: 20px;
+    box-shadow: 1px 2px 20px rgb(184, 184, 184);
 }
 
 #menu ul li:hover ul{

@@ -1,5 +1,14 @@
+:root{
+    --cor1: #DAE8F2;
+    --cor2: #505052;
+    --cor3: #EFEDF2;
+    --cor4: #E6E7ED;
+    --cor5: #C3CBD9;
+}
+
+
 body{
-    color: rgba(87, 85, 85, 0.89);
+    color: var(--cor2);
 }
 
 /*---------Botão--------*/
@@ -17,8 +26,8 @@ footer{
     font: normal 20pt Arial;
     position: fixed;
     bottom: 0;
-    background-color: rgb(255, 255, 255);
-    color: rgba(87, 85, 85, 0.89);
+    background-color: var(--cor4);
+    color: var(--cor2);
     width: 100%;
     height: 100px;
     text-align: center;
