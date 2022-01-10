@@ -9,11 +9,18 @@
     <section id="dados">
         <div id="dados_casos">
             <h2>Casos totais: {{casos}}</h2>
+            {%for dia in lista_dias%}
+                <p>{{dia}}</p>
+            {%endfor%}
         </div>
         <div id="dados_mortes">
             <h2>Mortes até o dia atual: {{mortes}}</h2>
         </div>
     </section>
+{%endblock%}
+
+{%block fim%}
+    <script src="{%static 'dados/script.js'%}"></script>
 </body>
 </html>
 {%endblock%}

@@ -55,12 +55,21 @@ def dados(request, nome):
     
     # nome_pais = dados_pais.dropna(how='all', axis=1).loc[1, ['Country/Region'][0]]  #deletando colunas vazias
 
+
+    dias = dados_casos_pais.iloc[:, 4:]
+    mortes_dias = dados_mortes_pais.iloc[:, 4:].iloc[0, :]
+    casos_dias = dias.iloc[0, :]
+
+
     context = {
         'paises': paises,
         'dados_pais': dados_casos_pais,
         'casos': casos_ate_hoje,
         'mortes': mortes_ate_hoje,
-        'nome_pais': nome
+        'nome_pais': nome,
+        'lista_dias': dias,
+        'lista_mortes': mortes_dias,
+        'lista_casos': casos_dias
     }
     
     return render(request, 'dados.html', context)
