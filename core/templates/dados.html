@@ -9,13 +9,34 @@
     <section id="dados">
         <div id="dados_casos">
             <h2>Casos totais: {{casos}}</h2>
-            {%for dia in lista_dias%}
-                <p>{{dia}}</p>
-            {%endfor%}
             <img src={{dia}}></img>
+            <div id="dia_casos">
+                <section>
+                    {%for dia in lista_dias%}
+                        <p>{{dia}}--></p>
+                    {%endfor%}
+                </section>
+                <section>
+                    {%for caso in lista_casos%}
+                        <p>{{caso}}</p>
+                    {%endfor%}
+                </section>
+            </div>
         </div>
         <div id="dados_mortes">
             <h2>Mortes até o dia atual: {{mortes}}</h2>
+            <div id="dia_mortes">
+                <section>
+                    {%for dia in lista_dias%}
+                        <p>{{dia}}--></p>
+                    {%endfor%}
+                </section>
+                <section>
+                    {%for morte in lista_mortes%}
+                        <p>{{morte}}</p>
+                    {%endfor%}
+                </section>
+            </div>
         </div>
     </section>
 {%endblock%}
