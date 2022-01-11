@@ -16,7 +16,7 @@
         <li><a href="#">Menu</a>
             <ul>
                 {%for pais in paises%}
-                    <li><a href="{%url 'dados' pais%}">{{pais}}</a></li>
+                    <li><a href="{%url 'dados' pais.nome_ingles%}">{{pais.nome_portugues}}</a></li>
                 {%endfor%}
              </ul>
         </li>

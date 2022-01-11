@@ -13,6 +13,12 @@ h2{
     text-align: center;
 }
 
+#header{
+    display: block;
+    text-align: center;
+    justify-content: center;
+}
+
 #dados{
     display: flex;
     flex-wrap: wrap;
@@ -44,4 +50,10 @@ h2{
     display: flex;
     flex-wrap: wrap;
     font: normal 20pt Arial;
+}
+
+#bandeira{
+    height: 100px;
+    width: 150px;
+    border-radius: 20px;
 }

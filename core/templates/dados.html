@@ -5,7 +5,13 @@
 {%block estilo%}{%static 'dados/style.css'%}{%endblock%}
     
 {%block content%}
-<h1>Nome do país: {{nome_pais}}</h1>
+<br>
+<br>
+<div id="header">
+    <h1>País: {{nome_pais}}</h1>
+    {% static "" as baseUrl %}
+    <img src="{{ baseUrl }}{{url_bandeira}}" id="bandeira"></img>
+</div>
     <section id="dados">
         <div id="dados_casos">
             <h2>Casos totais: {{casos}}</h2>
