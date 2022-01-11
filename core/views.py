@@ -73,6 +73,7 @@ def dados(request, nome):
         if pais.nome_ingles == nome:
             nome_portugues = pais.nome_portugues
             url_bandeira = pais.bandeira_url
+            nome_ingles = pais.nome_ingles
             break
 
 
@@ -99,18 +100,17 @@ def dados(request, nome):
     grafico_mortes = pegar_plot(lista_dias, lista_mortes, 'Dias', 'Mortes', 'Tabela Dias X Mortes')
     """
 
-    teste = 'de.png'
-
     context = {
         'paises': paises,
         'casos': casos_ate_hoje,
         'mortes': mortes_ate_hoje,
-        'nome_pais': nome_portugues,
+        'nome_portugues': nome_portugues,
+        'nome_ingles': nome_ingles,
         'url_bandeira': url_bandeira,
         'lista_dias': dias,
         'lista_mortes': mortes_dias,
         'lista_casos': casos_dias,
-        'teste': teste
+        'dataframe': dados_casos_df
         #'chart_casos': grafico_casos,
         #'chart_mortes': grafico_mortes
     }

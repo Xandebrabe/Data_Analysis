@@ -8,9 +8,10 @@
 <br>
 <br>
 <div id="header">
-    <h1>País: {{nome_pais}}</h1>
+    <h1>País: {{nome_portugues}}</h1>
     {% static "" as baseUrl %}
     <img src="{{ baseUrl }}{{url_bandeira}}" id="bandeira"></img>
+    <button onclick="testar()">Clique em mim!</button>
 </div>
     <section id="dados">
         <div id="dados_casos">
@@ -30,6 +31,9 @@
         </div>
         <div id="dados_mortes">
             <h2>Mortes até o dia atual: {{mortes}}</h2>
+            <canvas id="grafico_mortes" width="400" height="400">
+
+            </canvas>
             <div id="dia_mortes">
                 <section>
                     {%for dia in lista_dias%}
@@ -48,6 +52,74 @@
 
 {%block fim%}
     <script src="{%static 'dados/script.js'%}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script>
+
+        var nome = "{{nome_ingles}}"
+        var nomePort = "{{nome_portugues}}"
+
+        console.log(nome)
+        const xlabels = [];
+        const ylabels = [];
+        
+        gerarGrafico();
+
+        async function gerarGrafico(){
+            await getData();
+            const ctx = document.getElementById('grafico_mortes').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: xlabels,
+                    datasets: [{
+                        label: 'Dados - Mortes Covid '+ nomePort,
+                        data: ylabels,
+                        backgroundColor: ['rgba(255, 99, 132, 0.2)'],
+                        borderColor: ['rgba(255, 99, 132, 1)'],
+                        borderWidth: 1
+                    }]
+                }
+            });
+        }
+
+        var dataframe = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv'
+
+        function testar(){
+            window.alert(nome)
+        }
+
+        //getData();
+        async function getData(){
+            const response = await fetch(dataframe);
+            const data = await response.text();
+            const rows = data.split('\n');
+            const dias = rows[0].split(',').splice(4, rows[0].length)
+            
+            for(i=0; i<dias.length; i++){
+                if(i > dias.length-10){
+                    xlabels.push(dias[i])
+                }
+            }
+
+            rows.forEach(elt =>{
+                const row = elt.split(',')
+                if(row[1] == nome){
+                    mortes = row.splice(4, rows[0].length)
+                    for(i=0; i<mortes.length; i++){
+                        if(i > mortes.length-10){
+                            ylabels.push(mortes[i]);
+                        }
+                    }
+                }
+            })
+
+            console.log(xlabels)
+            console.log(ylabels)
+            //for(i=0; i<dias.length; i++){
+            //    console.log(dias[i] + " -> " + mortes[i])
+            //}
+        }
+    </script>
 </body>
 </html>
 {%endblock%}
