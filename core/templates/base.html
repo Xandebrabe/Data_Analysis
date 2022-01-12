@@ -1,6 +1,7 @@
 {%load static%}
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,29 +10,35 @@
     <link rel="stylesheet" href="{%static 'essencial/configs.css'%}">
     <link rel="stylesheet" href="{%block estilo%} {%endblock%}">
 </head>
+
 <body>
-<nav id="menu"> 
-    <ul>
-        <li><a href="{%url 'index'%}"><img src="{%static 'imagens/icone_home.png'%}" alt="icone da página inicial" width="20px" height="20px" id="icone_home">Home</a></li>
-        <li><a href="#"><img src="{%static 'imagens/icone_menu.png'%}" alt="icone do menu de países" width="20px" height="20px" id="icone_menu">Menu</a>
-            <ul>
-                {%for pais in paises%}
+    <nav id="menu">
+        <ul>
+            <li><a href="{%url 'index'%}"><img src="{%static 'imagens/icone_home.png'%}" alt="icone da página inicial"
+                        width="20px" height="20px" id="icone_home">Home</a></li>
+            <li><a href="#"><img src="{%static 'imagens/icone_menu.png'%}" alt="icone do menu de países" width="20px"
+                        height="17px" id="icone_menu">Menu</a>
+                <ul>
+                    {%for pais in paises%}
                     <li><a href="{%url 'dados' pais.nome_ingles%}">{{pais.nome_portugues}}</a></li>
-                {%endfor%}
-             </ul>
-        </li>
-        <li><a href="{%url 'sobrenos'%}">Sobre nós</a></li>
-    </ul>
-</nav>
+                    {%endfor%}
+                </ul>
+            </li>
+            <li><a href="{%url 'sobrenos'%}">Sobre nós</a></li>
+        </ul>
+    </nav>
 
-{%block content%}
+    {%block content%}
 
-{%endblock%}
+    {%endblock%}
 
-<footer>
-    <button></button>
-</footer>
+    <footer>
+        <button>
+            <a href="https://github.com/Xandebrabe/Data_Analysis" target="_blank"><img src="{%static 'imagens/ghub.png'%}" width="40px" height="40px" style="padding-top: 25px;"></a>
+        </button>
 
-{%block fim%}
+    </footer>
 
-{%endblock%}
+    {%block fim%}
+
+    {%endblock%}
