@@ -11,40 +11,42 @@
     <h1>País: {{nome_portugues}}</h1>
     {% static "" as baseUrl %}
     <img src="{{ baseUrl }}{{url_bandeira}}" id="bandeira"></img>
-    <button onclick="testar()">Clique em mim!</button>
 </div>
     <section id="dados">
         <div id="dados_casos">
-            <h2>Casos totais: {{casos}}</h2>
+            <h2>Casos até o dia atual: {{casos}}</h2>
+            <select id="tempo_casos" onchange="mudarTempo_casos()">
+                <option value="1">10 dias</option>
+                <option value="2">1 mês</option>
+                <option value="3">3 meses</option>
+                <option value="4">5 meses</option>
+                <option value="5">1 ano</option>
+                <option value="6">Desde o início</option>
+            </select>
+            <br>
+            <canvas id="grafico_casos" width="800px" height="450px">
+
+            </canvas>
             <div id="dia_casos">
-                <section>
-                    {%for dia in lista_dias%}
-                        <p>{{dia}}--></p>
-                    {%endfor%}
-                </section>
-                <section>
-                    {%for caso in lista_casos%}
-                        <p>{{caso}}</p>
-                    {%endfor%}
-                </section>
+
             </div>
         </div>
         <div id="dados_mortes">
             <h2>Mortes até o dia atual: {{mortes}}</h2>
-            <canvas id="grafico_mortes" width="400" height="400">
+            <select id="tempo_mortes" onchange="mudarTempo_mortes()">
+                <option value="1">10 dias</option>
+                <option value="2">1 mês</option>
+                <option value="3">3 meses</option>
+                <option value="4">5 meses</option>
+                <option value="5">1 ano</option>
+                <option value="6">Desde o início</option>
+            </select>
+            <br>
+            <canvas id="grafico_mortes" width="800px" height="450px">
 
             </canvas>
             <div id="dia_mortes">
-                <section>
-                    {%for dia in lista_dias%}
-                        <p>{{dia}}--></p>
-                    {%endfor%}
-                </section>
-                <section>
-                    {%for morte in lista_mortes%}
-                        <p>{{morte}}</p>
-                    {%endfor%}
-                </section>
+                
             </div>
         </div>
     </section>
@@ -52,72 +54,279 @@
 
 {%block fim%}
     <script src="{%static 'dados/script.js'%}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
 
         var nome = "{{nome_ingles}}"
         var nomePort = "{{nome_portugues}}"
 
-        console.log(nome)
-        const xlabels = [];
-        const ylabels = [];
-        
-        gerarGrafico();
+        //var myChart_casos = new Chart();
+        //var myChart_mortes = new Chart();
 
-        async function gerarGrafico(){
-            await getData();
-            const ctx = document.getElementById('grafico_mortes').getContext('2d');
-            const myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: xlabels,
-                    datasets: [{
-                        label: 'Dados - Mortes Covid '+ nomePort,
-                        data: ylabels,
-                        backgroundColor: ['rgba(255, 99, 132, 0.2)'],
-                        borderColor: ['rgba(255, 99, 132, 1)'],
-                        borderWidth: 1
-                    }]
-                }
-            });
-        }
+        xlabels_casos = [];
+        ylabels_casos = [];
 
-        var dataframe = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv'
+        xlabels_mortes = [];
+        ylabels_mortes = [];
 
-        function testar(){
-            window.alert(nome)
-        }
+        flag = 0;
 
-        //getData();
-        async function getData(){
-            const response = await fetch(dataframe);
-            const data = await response.text();
-            const rows = data.split('\n');
-            const dias = rows[0].split(',').splice(4, rows[0].length)
+        var exec = 0;
+
+        var tempo_referencia_casos = 10;
+        var tempo_referencia_mortes = 10;
+
+        var dataframe_casos = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv'
+
+        var dataframe_mortes = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv'
+
+
+        var area_casos = window.document.getElementById("dados_casos");
+        var area_mortes = window.document.getElementById("dados_mortes");
+
+
+        getData(flag, tempo_referencia_casos, tempo_referencia_mortes);
+        async function getData(flag, temp_casos, temp_mortes){
+            console.log(xlabels_casos);
+            const response_casos = await fetch(dataframe_casos);
+            const response_mortes = await fetch(dataframe_mortes);
+
+            const dataResponse_casos = await response_casos.text();
+            const dataResponse_mortes = await response_mortes.text();
+
+            const rows_casos = dataResponse_casos.split('\n');
+            const rows_mortes = dataResponse_mortes.split('\n');
+            dias = rows_casos[0].split(',').splice(4, rows_casos[0].length)
             
             for(i=0; i<dias.length; i++){
-                if(i > dias.length-10){
-                    xlabels.push(dias[i])
+                let mes = dias[i].substring(0, dias[i].indexOf('/'));
+                let dia = dias[i].substring(dias[i].indexOf('/')+1, dias[i].indexOf('/', dias[i].indexOf('/')+1));
+                let ano =  dias[i].slice(dias[i].length-2);
+
+                dt_formatada = dia+"/"+mes+"/"+ano;
+
+                if(i > dias.length-temp_casos){
+                    xlabels_casos.push(dt_formatada);
+                    //console.log('Dia: ' + dia + '  Mês: ' + mes);
+                    console.log(dt_formatada);
+                }
+            }
+            for(i=0; i<dias.length; i++){
+                let mes = dias[i].substring(0, dias[i].indexOf('/'));
+                let dia = dias[i].substring(dias[i].indexOf('/')+1, dias[i].indexOf('/', dias[i].indexOf('/')+1));
+                let ano =  dias[i].slice(dias[i].length-2);
+
+                dt_formatada = dia+"/"+mes+"/"+ano;
+
+                if(i > dias.length-temp_mortes){
+                    xlabels_mortes.push(dt_formatada);
                 }
             }
 
-            rows.forEach(elt =>{
+            rows_mortes.forEach(elt =>{
                 const row = elt.split(',')
                 if(row[1] == nome){
-                    mortes = row.splice(4, rows[0].length)
+                    mortes = row.splice(4, rows_mortes[0].length)
                     for(i=0; i<mortes.length; i++){
-                        if(i > mortes.length-10){
-                            ylabels.push(mortes[i]);
+                        if(i > mortes.length-temp_mortes){
+                            ylabels_mortes.push(mortes[i]);
                         }
                     }
                 }
             })
+            rows_casos.forEach(elt =>{
+                const row = elt.split(',')
+                if(row[1] == nome){
+                    casos = row.splice(4, rows_casos[0].length)
+                    for(i=0; i<casos.length; i++){
+                        if(i > casos.length-temp_casos){
+                            ylabels_casos.push(casos[i]);
+                        }
+                    }
+                }
+            })
+            
+            gerarGraficos(flag);
 
-            console.log(xlabels)
-            console.log(ylabels)
-            //for(i=0; i<dias.length; i++){
-            //    console.log(dias[i] + " -> " + mortes[i])
-            //}
+        }
+
+
+        function gerarGraficos(flag){
+            var canvas_casos;
+            var canvas_mortes;
+            
+            if(flag == 1){
+                data_casos = {
+                    labels: xlabels_casos,
+                    datasets: [{
+                        label: 'Gráfico - Casos Covid ' + nomePort,
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: ylabels_casos,
+                        borderWidth: 0.5
+                    }]
+                };
+
+                config = {
+                    type: 'line',
+                    data: data_casos,
+                    options: {}
+                };
+
+                myChart_casos = new Chart(
+                    document.getElementById('grafico_casos'),
+                    config
+                );
+            }
+            else if(flag == 2){
+                data_mortes = {
+                    labels: xlabels_mortes,
+                    datasets: [{
+                        label: 'Gráfico - Mortes Covid ' + nomePort,
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: ylabels_mortes,
+                        borderWidth: 0.5
+                    }]
+                };
+
+                config = {
+                    type: 'line',
+                    data: data_mortes,
+                    options: {}
+                };
+
+                myChart_mortes = new Chart(
+                    document.getElementById('grafico_mortes'),
+                    config
+                );
+            }
+            else{
+                data_casos = {
+                    labels: xlabels_casos,
+                    datasets: [{
+                        label: 'Gráfico - Casos Covid ' + nomePort,
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: ylabels_casos,
+                        borderWidth: 0.5
+                    }]
+                };
+
+                config = {
+                    type: 'line',
+                    data: data_casos,
+                    options: {}
+                };
+
+                myChart_casos = new Chart(
+                    document.getElementById('grafico_casos'),
+                    config
+                );
+
+                data_mortes = {
+                    labels: xlabels_mortes,
+                    datasets: [{
+                        label: 'Gráfico - Mortes Covid ' + nomePort,
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: ylabels_mortes,
+                        borderWidth: 0.5
+                    }]
+                };
+
+                config = {
+                    type: 'line',
+                    data: data_mortes,
+                    options: {}
+                };
+
+                myChart_mortes = new Chart(
+                    document.getElementById('grafico_mortes'),
+                    config
+                );
+            }
+        }
+
+        function mudarTempo_casos(){
+            if(document.getElementById('tempo_casos').value == 1){
+                tempo_referencia_casos = 10;
+            }
+            else if(document.getElementById('tempo_casos').value == 2){
+                tempo_referencia_casos = 30;
+            }
+            else if(document.getElementById('tempo_casos').value == 3){
+                tempo_referencia_casos = 90;
+            }
+            else if(document.getElementById('tempo_casos').value == 4){
+                tempo_referencia_casos = 150;
+            }
+            else if(document.getElementById('tempo_casos').value == 5){
+                tempo_referencia_casos = 365;
+            }
+            else{
+                tempo_referencia_casos = dias.length;
+            }
+            for (let i = xlabels_casos.length; i > 0; i--) {
+                xlabels_casos.pop();
+            }
+            for (let i = xlabels_mortes.length; i > 0; i--) {
+                xlabels_mortes.pop();
+            }
+            for (let i = ylabels_casos.length; i > 0; i--) {
+                ylabels_casos.pop();
+            }
+            for (let i = ylabels_mortes.length; i > 0; i--) {
+                ylabels_mortes.pop();
+            }
+            myChart_casos.destroy();
+            flag = 1;
+            //myChart_mortes.destroy();
+            getData(flag, tempo_referencia_casos, tempo_referencia_mortes);
+        }
+
+        function mudarTempo_mortes(){
+            if(document.getElementById('tempo_mortes').value == 1){
+                //window.alert("Mudou mortes para 10 dias!");
+                tempo_referencia_mortes = 10;
+            }
+            else if(document.getElementById('tempo_mortes').value == 2){
+                //window.alert("Mudou mortes para 1 mês!");
+                tempo_referencia_mortes = 30;
+            }
+            else if(document.getElementById('tempo_mortes').value == 3){
+                //window.alert("Mudou mortes para 3 meses!");
+                tempo_referencia_mortes = 90;
+            }
+            else if(document.getElementById('tempo_mortes').value == 4){
+                //window.alert("Mudou mortes para 5 meses!");
+                tempo_referencia_mortes = 150;
+            }
+            else if(document.getElementById('tempo_mortes').value == 5){
+                tempo_referencia_mortes = 365;
+            }
+            else{
+                tempo_referencia_mortes = dias.length;
+            }
+            for (let i = xlabels_casos.length; i > 0; i--) {
+                xlabels_casos.pop();
+            }
+            for (let i = xlabels_mortes.length; i > 0; i--) {
+                xlabels_mortes.pop();
+            }
+            for (let i = ylabels_casos.length; i > 0; i--) {
+                ylabels_casos.pop();
+            }
+            for (let i = ylabels_mortes.length; i > 0; i--) {
+                ylabels_mortes.pop();
+            }
+            flag = 2;
+            //myChart_casos.destroy();
+            myChart_mortes.destroy();
+            getData(flag, tempo_referencia_casos, tempo_referencia_mortes);
+        }
+        function testar(){
+            window.alert("Tempo casos: " + tempo_referencia_casos + "  Tempo mortes: " + tempo_referencia_mortes);
         }
     </script>
 </body>
