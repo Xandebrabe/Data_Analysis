@@ -11,3 +11,26 @@
 h2{
     color: #eeb6b6;
 }
+#cont{
+    width: 700px;
+    height: 500px;
+    padding: 100px;
+    justify-content: left;
+}
+h1{
+    text-align: center;
+    color: black;
+}
+h2{
+    text-align: center;
+    color: white;
+}
+p{
+    color: #eeb6b6;
+}
+h3{
+    color:white;
+}
+li{
+    color: #eeb6b6;
+}
