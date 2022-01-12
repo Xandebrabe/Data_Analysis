@@ -15,6 +15,8 @@ paises = Paises.objects.all()
 
 
 def index(request):
+    dados_casos_df = pd.read_csv(url_dados_casos)
+    dados_mortes_df = pd.read_csv(url_dados_mortes)
     qualquercoisa = dados_casos_df['Country/Region']
 
     # Pegando dados do mundo:
@@ -28,9 +30,12 @@ def index(request):
     mortes_lista_mundo = []
 
     for i in range(len(casos_mundo)):
+        casos_lista_mundo.clear()
+        mortes_lista_mundo.clear()
         casos_lista_mundo.append(casos_mundo[i])
         mortes_lista_mundo.append(mortes_mundo[i])
     
+
     casos_atualizados_mundo = casos_lista_mundo[-1]
     mortes_atualizadas_mundo = mortes_lista_mundo[-1]
 

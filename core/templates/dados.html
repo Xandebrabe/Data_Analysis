@@ -87,7 +87,6 @@
 
         getData(flag, tempo_referencia_casos, tempo_referencia_mortes);
         async function getData(flag, temp_casos, temp_mortes){
-            console.log(xlabels_casos);
             const response_casos = await fetch(dataframe_casos);
             const response_mortes = await fetch(dataframe_mortes);
 
@@ -98,7 +97,7 @@
             const rows_mortes = dataResponse_mortes.split('\n');
             dias = rows_casos[0].split(',').splice(4, rows_casos[0].length)
             
-            for(i=0; i<dias.length; i++){
+            for(i=0; i < dias.length; i++){
                 let mes = dias[i].substring(0, dias[i].indexOf('/'));
                 let dia = dias[i].substring(dias[i].indexOf('/')+1, dias[i].indexOf('/', dias[i].indexOf('/')+1));
                 let ano =  dias[i].slice(dias[i].length-2);
@@ -107,8 +106,6 @@
 
                 if(i > dias.length-temp_casos){
                     xlabels_casos.push(dt_formatada);
-                    //console.log('Dia: ' + dia + '  Mês: ' + mes);
-                    console.log(dt_formatada);
                 }
             }
             for(i=0; i<dias.length; i++){
@@ -281,7 +278,6 @@
             }
             myChart_casos.destroy();
             flag = 1;
-            //myChart_mortes.destroy();
             getData(flag, tempo_referencia_casos, tempo_referencia_mortes);
         }
 
@@ -321,7 +317,6 @@
                 ylabels_mortes.pop();
             }
             flag = 2;
-            //myChart_casos.destroy();
             myChart_mortes.destroy();
             getData(flag, tempo_referencia_casos, tempo_referencia_mortes);
         }
