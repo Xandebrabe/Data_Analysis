@@ -12,13 +12,13 @@
 }
 
 body{
-    background-color: var(--cor1);
+    background-color: #2d3540;
 }
 
 /*---------menu--------*/
 #menu{
-    background-color: var(--cor4);
-    box-shadow: 1px 2px 20px rgb(184, 184, 184);
+    background-color: #64b7cc;
+    box-shadow: 1px 2px 20px #202124;
 }
 #menu ul{
     font: normal 20pt Arial;
@@ -74,13 +74,13 @@ body{
 /*---------footer--------*/
 footer{
     text-align: center;
-    background-color: var(--cor4);
+    background-color: #64b7cc;
     color: var(--cor2);
     bottom: 0;
     width: 100%;
     height: 100px;
     position: absolute;
-    box-shadow: 1px 2px 10px rgb(184, 184, 184);
+    box-shadow: 1px 2px 10px #202124;
     font: normal 20pt Arial;
     justify-content: center;
 
