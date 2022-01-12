@@ -16,7 +16,11 @@
         <li><a href="#"><img src="{%static 'imagens/icone_menu.png'%}" alt="icone do menu de países" width="20px" height="20px" id="icone_menu">Menu</a>
             <ul>
                 {%for pais in paises%}
-                    <li><a href="{%url 'dados' pais.nome_ingles%}">{{pais.nome_portugues}}</a></li>
+                    {%if pais.nome_ingles != "Earth"%}
+                        <li><a href="{%url 'dados' pais.nome_ingles%}">{{pais.nome_portugues}}</a></li>
+                    {%else%}
+                        <li><a href="{%url 'dados' pais.nome_portugues%}">{{pais.nome_portugues}}</a></li>
+                    {%endif%}
                 {%endfor%}
              </ul>
         </li>

@@ -1,16 +1,23 @@
 {%extends 'base.html'%}
 {%load static%}
 
-{%block title%}Dados - {{nome_pais}}{%endblock%}
+{%block title%}Dados - {{nome_portugues}}{%endblock%}
 {%block estilo%}{%static 'dados/style.css'%}{%endblock%}
     
 {%block content%}
 <br>
 <br>
 <div id="header">
-    <h1>País: {{nome_portugues}}</h1>
-    {% static "" as baseUrl %}
-    <img src="{{ baseUrl }}{{url_bandeira}}" id="bandeira"></img>
+    {%if nome_portugues != 'Mundo Inteiro'%}
+        <h1>País: {{nome_portugues}}</h1>
+        {% static "" as baseUrl %}
+        <img src="{{ baseUrl }}{{url_bandeira}}" id="bandeira"></img>
+    {%else%}
+        <h1>Panorama: {{nome_portugues}}</h1>
+        {% static "" as baseUrl %}
+        <img src="{{ baseUrl }}{{url_bandeira}}" id="bandeira-mundo"></img>
+    {%endif%}
+    
 </div>
     <section id="dados">
         <div id="dados_casos">
@@ -60,6 +67,8 @@
         var nome = "{{nome_ingles}}"
         var nomePort = "{{nome_portugues}}"
 
+        console.log(nomePort)
+
         //var myChart_casos = new Chart();
         //var myChart_mortes = new Chart();
 
@@ -87,6 +96,7 @@
 
         getData(flag, tempo_referencia_casos, tempo_referencia_mortes);
         async function getData(flag, temp_casos, temp_mortes){
+            isMundo=0
             const response_casos = await fetch(dataframe_casos);
             const response_mortes = await fetch(dataframe_mortes);
 
@@ -122,26 +132,79 @@
 
             rows_mortes.forEach(elt =>{
                 const row = elt.split(',')
-                if(row[1] == nome){
-                    mortes = row.splice(4, rows_mortes[0].length)
-                    for(i=0; i<mortes.length; i++){
-                        if(i > mortes.length-temp_mortes){
-                            ylabels_mortes.push(mortes[i]);
+                if(nome == 'Korea, South'){
+                    if(row[1] == '"Korea'){
+                        mortes = row.splice(4, rows_mortes[0].length)
+                        for(i=0; i<mortes.length; i++){
+                            if(i > mortes.length-temp_mortes){
+                                ylabels_mortes.push(mortes[i]);
+                            }
                         }
                     }
+                }
+                else if(nomePort != 'Mundo Inteiro'){
+                    if(row[1] == nome){
+                        mortes = row.splice(4, rows_mortes[0].length)
+                        for(i=0; i<mortes.length; i++){
+                            if(i > mortes.length-temp_mortes){
+                                ylabels_mortes.push(mortes[i]);
+                            }
+                        }
+                    }
+                }
+                else{
+                    isMundo = 1
                 }
             })
             rows_casos.forEach(elt =>{
                 const row = elt.split(',')
-                if(row[1] == nome){
-                    casos = row.splice(4, rows_casos[0].length)
-                    for(i=0; i<casos.length; i++){
-                        if(i > casos.length-temp_casos){
-                            ylabels_casos.push(casos[i]);
+                if(nome == 'Korea, South'){
+                    if(row[1] == '"Korea'){
+                        casos = row.splice(4, rows_casos[0].length)
+                        for(i=0; i<casos.length; i++){
+                            if(i > casos.length-temp_casos){
+                                ylabels_casos.push(casos[i]);
+                            }
                         }
                     }
                 }
+                else if(nomePort != 'Mundo Inteiro'){
+                    if(row[1] == nome){
+                        casos = row.splice(4, rows_casos[0].length)
+                        for(i=0; i<casos.length; i++){
+                            if(i > casos.length-temp_casos){
+                                ylabels_casos.push(casos[i]);
+                            }
+                        }
+                    }
+                }
+                else{
+                    isMundo = 1
+                }
             })
+
+            if(isMundo == 1){
+                ylabels_casos_prov = []
+                ylabels_mortes_prov = []
+                "{%for casos in lista_casos%}"
+                    ylabels_casos_prov.push("{{casos}}")
+                "{%endfor%}"
+                "{%for mortes in lista_mortes%}"
+                    ylabels_mortes_prov.push("{{mortes}}")
+                "{%endfor%}"
+
+                j1=ylabels_casos_prov.length-temp_casos+1
+                j2=ylabels_mortes_prov.length-temp_mortes+1
+                for(i=0; i<temp_casos-1; i++){
+                    ylabels_casos.push(ylabels_casos_prov[j1])
+                    j1++
+                }
+                for(i=0; i<temp_mortes-1; i++){
+                    ylabels_mortes.push(ylabels_mortes_prov[j2])
+                    j2++
+                }
+            }
+
             
             gerarGraficos(flag);
 
@@ -151,8 +214,10 @@
         function gerarGraficos(flag){
             var canvas_casos;
             var canvas_mortes;
+            var cont = 0
             
             if(flag == 1){
+                
                 data_casos = {
                     labels: xlabels_casos,
                     datasets: [{

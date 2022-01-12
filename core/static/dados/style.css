@@ -59,6 +59,10 @@ h2{
     width: 150px;
     border-radius: 20px;
 }
+#bandeira-mundo{
+    height: 150px;
+    width: 150px;
+}
 
 #grafico_casos{
     margin-top: 10px;
