@@ -15,7 +15,7 @@
 <nav id="menu"> 
     <ul>
         <li><a href="{%url 'index'%}"><img src="{%static 'imagens/icone_home.png'%}" alt="icone da página inicial" width="20px" height="20px" id="icone_home">Home</a></li>
-        <li><a href="#"><img src="{%static 'imagens/icone_menu.png'%}" alt="icone do menu de países" width="20px" height="20px" id="icone_menu">Menu</a>
+        <li><a href="#"><img src="{%static 'imagens/icone_menu.png'%}" alt="icone do menu de países" width="20px" height=17px" id="icone_menu">Menu</a>
             <ul>
                 {%for pais in paises%}
                     {%if pais.nome_ingles != "Earth"%}

@@ -8,11 +8,11 @@
 
 h1{
     text-align: center;
-    color: black;
+    color: white;
 }
 h2{
     text-align: center;
-    color: white;
+    color: #2d3540;
 }
 
 #header{
@@ -62,8 +62,8 @@ h2{
     border-radius: 20px;
 }
 #bandeira-mundo{
-    height: 150px;
-    width: 150px;
+    height: 100px;
+    width: 120px;
 }
 
 #grafico_casos{

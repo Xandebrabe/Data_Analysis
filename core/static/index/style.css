@@ -13,13 +13,13 @@ body{
 
 /*---------Botão--------*/
 
-#botao{
+
+#conter{
+    width: 1480px;
     border: none;
-    border-radius: 20px;
-    height: 40px;
-    font-weight: bold;
-    background-color: rgb(200, 200, 37);
+    padding: 13x;
 }
+
 h1{
     text-align: center;
     color: black;
@@ -32,7 +32,7 @@ p{
     color: #eeb6b6;
 }
 h3{
-    color:yellow;
+    color:white;
 }
 li{
     color: #eeb6b6;
