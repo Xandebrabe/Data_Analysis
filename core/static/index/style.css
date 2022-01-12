@@ -20,4 +20,20 @@ body{
     font-weight: bold;
     background-color: rgb(200, 200, 37);
 }
-
+h1{
+    text-align: center;
+    color: black;
+}
+h2{
+    text-align: center;
+    color: white;
+}
+p{
+    color: #eeb6b6;
+}
+h3{
+    color:yellow;
+}
+li{
+    color: #eeb6b6;
+}
