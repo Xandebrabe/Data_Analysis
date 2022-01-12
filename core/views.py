@@ -35,9 +35,33 @@ paises = Paises.objects.all()
 #isso vai printar na tela a latitude, só que ele fala primeiro a posição, depois o item em si. Ex '0' '33.939110' 
 def index(request):
     qualquercoisa = dados_casos_df['Country/Region']
+
+    # Pegando dados do mundo:
+    dados_casos_df.loc[len(dados_casos_df)] = dados_casos_df.sum(axis=0)
+    dados_mortes_df.loc[len(dados_mortes_df)] = dados_mortes_df.sum(axis=0)
+
+    casos_mundo = dados_casos_df.iloc[-1, 4:]
+    mortes_mundo = dados_mortes_df.iloc[-1, 4:]
+
+    casos_lista_mundo = []
+    mortes_lista_mundo = []
+
+    for i in range(len(casos_mundo)):
+        casos_lista_mundo.append(casos_mundo[i])
+        mortes_lista_mundo.append(mortes_mundo[i])
+    
+    casos_atualizados_mundo = casos_lista_mundo[-1]
+    mortes_atualizadas_mundo = mortes_lista_mundo[-1]
+
+    print(f"{len(casos_lista_mundo)}    {len(mortes_lista_mundo)}")
+
     context = {
         'paises': paises,
-        'teste':qualquercoisa
+        'teste':qualquercoisa,
+        'casos_lista_mundo': casos_lista_mundo,
+        'mortes_lista_mundo': mortes_lista_mundo,
+        'casos_atualizados_mundo': casos_atualizados_mundo,
+        'mortes_atualizadas_mundo': mortes_atualizadas_mundo,
     }
     return render(request, 'index.html', context)
 
@@ -77,29 +101,6 @@ def dados(request, nome):
             break
 
 
-    """"
-    dias_reduzidos = dados_casos_df.loc[dados_casos_df['Country/Region'] == nome].iloc[:, 690:]
-    mortes_dias_reduzidos = dados_mortes_df.loc[dados_mortes_df['Country/Region'] == nome].iloc[:, 690:].iloc[0, :]
-    casos_dias_reduzidos = dias_reduzidos.iloc[0, :]
-
-    lista_dias = []
-    lista_casos = []
-    lista_mortes = []
-    cont=0
-
-    for dia in dias:
-        lista_dias.append(dia)
-    
-    for caso in casos_dias:
-        lista_casos.append(caso)
-
-    for morte in mortes_dias:
-        lista_mortes.append(morte)
-
-    grafico_casos = pegar_plot(lista_dias, lista_casos, 'Dias', 'Casos', 'Tabela Dias X Casos')
-    grafico_mortes = pegar_plot(lista_dias, lista_mortes, 'Dias', 'Mortes', 'Tabela Dias X Mortes')
-    """
-
     context = {
         'paises': paises,
         'casos': casos_ate_hoje,
@@ -110,7 +111,7 @@ def dados(request, nome):
         'lista_dias': dias,
         'lista_mortes': mortes_dias,
         'lista_casos': casos_dias,
-        'dataframe': dados_casos_df
+        #'dataframe': dados_casos_df
         #'chart_casos': grafico_casos,
         #'chart_mortes': grafico_mortes
     }
