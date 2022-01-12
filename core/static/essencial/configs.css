@@ -24,6 +24,7 @@ body{
 }
 #menu ul{
     font: normal 20pt Arial;
+    font-weight: bold;
     list-style-type: none;
     padding: 0;
     max-width: 800px;
@@ -63,6 +64,13 @@ body{
 #menu ul li:hover ul{
     display: flex;
     flex-wrap: wrap;
+}
+
+#icone_home{
+    display: inline;
+}
+#icone_menu{
+    display: inline;
 }
 
 
